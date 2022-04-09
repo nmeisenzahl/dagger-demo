@@ -1,0 +1,27 @@
+
+name: Build app
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    name: Build app
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout ocde
+        uses: actions/checkout@v2
+
+      - name: Test app
+        uses: dagger/dagger-for-github@v2
+        with:
+          args: do test_app
+
+      - name: Build app
+        uses: dagger/dagger-for-github@v2
+        with:
+          args: do build_image
